@@ -1,0 +1,47 @@
+services:
+    php:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        container_name: phpApache
+        restart: always
+        ports:
+            - 85:80
+        volumes:
+            - ./:/var/www/html/
+        networks:
+            - projetointegrador
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        networks:
+            - projetointegrador
+    mysql:
+        image: 'mariadb:latest'
+        container_name: 'testprojeto'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MARIADB_DATABASE: 'projeto'
+            MARIADB_USER: 'user'
+            MARIADB_PASSWORD: 'pass'
+            MARIADB_ROOT_PASSWORD: 'pass'
+        restart: always
+        volumes:
+            - './bd/projeto.sql:/docker-entrypoint-initdb.d/init.sql'
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - '-p${DB_PASSWORD}'
+            retries: 3
+            timeout: 5s
+        networks:
+            - projetointegrador
+networks:
+    projetointegrador:
+        driver: bridge
