@@ -27,13 +27,12 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `dev`
 --
 
-CREATE TABLE `produto` (
+CREATE TABLE `tarefa` (
   `id` int(11) NOT NULL,
-  `nome` varchar(20) DEFAULT NULL,
-  `preco` int DEFAULT NULL,
-  `quant` int DEFAULT NULL,
-  `tipo` varchar(20) DEFAULT NULL,
-  `obs` varchar(200) DEFAULT NULL
+  `nome` varchar(50) DEFAULT NULL,
+  `realiza` date DEFAULT NULL,
+  `tarefa` text(240) DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -45,7 +44,7 @@ CREATE TABLE `produto` (
 --
 -- Índices para tabela `dev`
 --
-ALTER TABLE `produto`
+ALTER TABLE `tarefa`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -55,7 +54,7 @@ ALTER TABLE `produto`
 --
 -- AUTO_INCREMENT de tabela `dev`
 --
-ALTER TABLE `produto`
+ALTER TABLE `tarefa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 
